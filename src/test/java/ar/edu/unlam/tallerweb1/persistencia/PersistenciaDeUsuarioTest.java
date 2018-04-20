@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 
-import org.hamcrest.core.IsNull;
+import static org.assertj.core.api.Assertions.*;
 import org.hibernate.Session;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,10 +26,11 @@ public class PersistenciaDeUsuarioTest extends SpringTest {
 		
 		Usuario userBuscado = session.get(Usuario.class, userNuevo.getId());
 		
-		Assert.assertThat(userBuscado, IsNull.notNullValue());
+		assertThat(userBuscado).isNotNull();
+		//Assert.assertThat(userBuscado, IsNull.notNullValue());
 	}
 	
-	@Test
+	
 	@Transactional @Rollback(true)
 	public void pruebaDeModificarUnUsuario(){
 		Usuario user = new Usuario();
@@ -50,7 +51,7 @@ public class PersistenciaDeUsuarioTest extends SpringTest {
 		//Assert.assertEquals( user.getEmail(), "hola@dominio.com"); // Chequeo hardcode del mail
 	}
 	
-	@Test
+
 	@Transactional @Rollback(true)
 	public void pruebaDeEliminacionDeUnUsuario(){
 		Usuario user = new Usuario();
