@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Farmacia {
@@ -12,14 +13,23 @@ public class Farmacia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
-	private String numero;
+	private String telefono;
 	private String diaDeTurno;
+	@OneToOne
+	private Direccion calle;
 	
 	
+
 	public Farmacia(String nombre, String numero, String diaDeTurno) {
 		this.nombre = nombre;
-		this.numero = numero;
+		this.telefono = numero;
 		this.diaDeTurno = diaDeTurno;
+	}
+	public Farmacia(String nombre, String numero, String diaDeTurno, Direccion calle) {
+		this.nombre = nombre;
+		this.telefono = numero;
+		this.diaDeTurno = diaDeTurno;
+		this.calle = calle;
 	}
 	public String getNombre() {
 		return nombre;
@@ -28,10 +38,10 @@ public class Farmacia {
 		this.nombre = nombre;
 	}
 	public String getNumero() {
-		return numero;
+		return telefono;
 	}
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.telefono = numero;
 	}
 	public String getDiaDeTurno() {
 		return diaDeTurno;
@@ -41,6 +51,12 @@ public class Farmacia {
 	}
 	public Long getId() {
 		return id;
+	}
+	public Direccion getCalle() {
+		return calle;
+	}
+	public void setCalle(Direccion calle) {
+		this.calle = calle;
 	}
 
 }
