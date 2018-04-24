@@ -62,12 +62,15 @@ public class ConsultaDeFarmaciasTest extends SpringTest {
 		sessionTest.save(farmacia3);
 		sessionTest.save(farmacia4);
 		
+
 		List<Farmacia> farmaciasBuscadas = sessionTest.createCriteria(Farmacia.class)
 														.createAlias("calle", "direccion")
 														.add(Restrictions.like("direccion.calle","Av. Rivadavia"))
-														.add(Restrictions.like("direccion.numero", "2100"))
 														.list();
-		assertThat(farmaciasBuscadas.size()).isEqualTo(1);
+		
+		for (Farmacia farmacia : farmaciasBuscadas) {
+			assertThat(farmacia.getCalle().getCalle()).isEqualTo(dir_Farmacia1.getCalle());
+		}
 	}
 
 }
