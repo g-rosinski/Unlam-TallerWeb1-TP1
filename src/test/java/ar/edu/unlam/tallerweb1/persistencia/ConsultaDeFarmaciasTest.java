@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.modelo.Barrio;
 import ar.edu.unlam.tallerweb1.modelo.Direccion;
 import ar.edu.unlam.tallerweb1.modelo.Farmacia;
 
@@ -72,5 +73,38 @@ public class ConsultaDeFarmaciasTest extends SpringTest {
 			assertThat(farmacia.getCalle().getCalle()).isEqualTo(dir_Farmacia1.getCalle());
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	@Transactional @Rollback(true)
+	public void consultaDeFarmaciaPorBarrio(){
+		
+		Barrio barrio1 = new Barrio("Caballito");
+		Barrio barrio2 = new Barrio("P. Sherman");
+		
+		Direccion dir_Farmacia1 = new Direccion("Av. Rivadavia","7800",barrio1);
+		Direccion dir_Farmacia2 = new Direccion("Av. Rivadavia","2100", barrio1);
+		Direccion dir_Farmacia3 = new Direccion("Av. Cordoba","750",barrio1);
+		Direccion dir_Farmacia4 = new Direccion("Wallaby","42",barrio2);
+				
+		Farmacia farmacia1 = new Farmacia("Don Jose","4555-5555","2", dir_Farmacia1);
+		Farmacia farmacia2 = new Farmacia("Don Juan","4555-5555","2", dir_Farmacia2);
+		Farmacia farmacia3 = new Farmacia("Don Pepito","4555-5555","3", dir_Farmacia3);
+		Farmacia farmacia4 = new Farmacia("Don Nemo","4555-5555","4", dir_Farmacia4);
+		
+		Session sessionTest = getSession();
+		
+		sessionTest.save(barrio1);
+		sessionTest.save(barrio2);
+		
+		sessionTest.save(dir_Farmacia1);
+		sessionTest.save(dir_Farmacia2);
+		sessionTest.save(dir_Farmacia3);
+		sessionTest.save(dir_Farmacia4);
+		
+		sessionTest.save(farmacia1);
+		sessionTest.save(farmacia2);
+		sessionTest.save(farmacia3);
+		sessionTest.save(farmacia4);
+	}
 }
